@@ -10,7 +10,8 @@ namespace LightWebAPI.Models
         
         public bool IsOn { get; set; }
         
-        public string Color { get; set; }
+        //Deprecated
+        //public string Color { get; set; }
         
         public string Brightness { get; set; }
         

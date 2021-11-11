@@ -108,3 +108,4 @@
 /Users/main/Desktop/LightDashboard/backend/obj/Debug/net5.0/ref/LightWebAPI.dll
 /Users/main/Desktop/LightDashboard/backend/obj/Debug/net5.0/LightWebAPI.pdb
 /Users/main/Desktop/LightDashboard/backend/obj/Debug/net5.0/LightWebAPI.genruntimeconfig.cache
+/Users/main/Desktop/LightDashboard/backend/bin/Debug/net5.0/Newtonsoft.Json.dll

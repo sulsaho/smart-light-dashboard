@@ -6,6 +6,7 @@ import Slider from '@material-ui/core/Slider';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
+import Checkbox from '@material-ui/core/Checkbox';
 import {Stack} from "@mui/material";
 
 function App() {
@@ -54,6 +55,10 @@ function App() {
     await axios.post('https://localhost:5001/api/LightState/light/color/pink');
   }
 
+  async function breatheEffect() {
+    await axios.post('https://localhost:5001/api/LightState/light/breathe');
+  }
+
   async function getBrightnessValue(e, val) {
     let uri = 'https://localhost:5001/api/LightState/light/brightness/' + val.toString();
     await axios.post(uri);
@@ -66,7 +71,7 @@ function App() {
         <div>
           <h2>Turn ON/OFF</h2>
           <ButtonGroup
-            variant='outlined'>
+            variant="outlined">
             <Button
                 size="large"
                 color="primary"
@@ -143,6 +148,17 @@ function App() {
           </ButtonGroup>
         </div>
 
+        <h2>Pulse Effect</h2>
+        <div>
+          <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              onClick={breatheEffect}>
+            Pulse Light
+          </Button>
+        </div>
+
         <h2>Set Brightness</h2>
 
         <div style={{width: 300}}>
@@ -160,6 +176,7 @@ function App() {
           </Stack>
         </div>
 
+        {/*<Checkbox/> */}
 
           {/* Not needed */}
         {/*<img src={logo} className="App-logo" alt="logo" /> */}
