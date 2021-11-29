@@ -8,11 +8,23 @@ import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
 import Checkbox from '@material-ui/core/Checkbox';
 import {Stack} from "@mui/material";
+import {Switch, TextField} from "@material-ui/core";
+import {useState} from "react";
 
 function App() {
 
+  const [time, setTime] = useState('');
+
+  function handleTime (event) {
+    setTime(event.target.value);
+    console.log(time);
+  }
+  async function postTime(){
+    await axios.post(`http://localhost:5000/api/LightState/light/get-time/${time}`);
+  }
+
   async function onButton() {
-    await axios.post('https://localhost:5001/api/LightState/light/turn-on');
+    await axios.post('http://localhost:5000/api/LightState/light/turn-on');
   }
 
   async function offButton() {
@@ -64,8 +76,7 @@ function App() {
     await axios.post(uri);
   }
 
-
-      return (
+  return (
     <div className="App">
       <header className="App-header">
         <div>
@@ -180,6 +191,15 @@ function App() {
 
           {/* Not needed */}
         {/*<img src={logo} className="App-logo" alt="logo" /> */}
+        <div>
+          <h2>Set the schedular</h2>
+          <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+            <Switch  />
+            <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
+            <Button variant="contained" onClick={postTime}>Save</Button>
+          </Stack>
+
+        </div>
       </header>
     </div>
   );

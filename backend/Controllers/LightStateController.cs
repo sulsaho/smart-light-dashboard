@@ -13,7 +13,6 @@ using RestSharp;
 
 namespace LightWebAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class LightStateController : ControllerBase
@@ -199,5 +198,14 @@ namespace LightWebAPI.Controllers
             var response = client.Execute(request);
             return response.Content;
         }
+
+        [HttpPost("light/get-time/{time}")]
+
+        public string getTime(string time)
+        {
+            Console.Write("Input time :" + time);
+            return time;
+        }
+
     }
 }

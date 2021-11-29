@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LightWebAPI.Controllers;
 using LightWebAPI.Models;
 using LightWebAPI.Repositories;
+using LightWebAPI.ScheduleTask;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,8 @@ namespace LightWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ILightStateRepository, LightStateRepository>();
+            services.AddScoped<LightStateController>();
+            services.AddSingleton<IHostedService, SampleTask1>();
             services.AddDbContext<LightStateContext>(o => o.UseSqlite("Data source=light.db"));
             services.AddControllers();
             services.AddSwaggerGen(c =>

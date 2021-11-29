@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/main/Desktop/LightDashboard/backend/LightWebAPI.csproj": {}
+    "/Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/LightWebAPI.csproj": {}
   },
   "projects": {
-    "/Users/main/Desktop/LightDashboard/backend/LightWebAPI.csproj": {
+    "/Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/LightWebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/main/Desktop/LightDashboard/backend/LightWebAPI.csproj",
+        "projectUniqueName": "/Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/LightWebAPI.csproj",
         "projectName": "LightWebAPI",
-        "projectPath": "/Users/main/Desktop/LightDashboard/backend/LightWebAPI.csproj",
-        "packagesPath": "/Users/main/.nuget/packages/",
-        "outputPath": "/Users/main/Desktop/LightDashboard/backend/obj/",
+        "projectPath": "/Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/LightWebAPI.csproj",
+        "packagesPath": "/Users/a.lamichhane/.nuget/packages/",
+        "outputPath": "/Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/main/.nuget/NuGet/NuGet.Config"
+          "/Users/a.lamichhane/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -53,6 +53,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "ncrontab": {
+              "target": "Package",
+              "version": "[3.3.1, )"
             }
           },
           "imports": [
@@ -73,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.403/RuntimeIdentifierGraph.json"
         }
       }
     }

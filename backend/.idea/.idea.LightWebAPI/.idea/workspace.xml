@@ -9,20 +9,25 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LightWebAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightWebAPI/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/LightStateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LightStateController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LightWebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/LightWebAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/LightState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/LightState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/LightStateContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/LightStateContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/LightStateRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/LightStateRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.runtimeconfig.dev.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/LightWebAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/light.db" beforeDir="false" afterPath="$PROJECT_DIR$/light.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/LightWebAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/LightWebAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/LightWebAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/LightWebAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/LightWebAPI.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
@@ -39,12 +44,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/main/Desktop/LightDashboard/backend/Controllers/LightStateController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/42ed81b84ea64a209c8a62c83d9d73f98d7a00/228/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bc1bd6ea66154763a3b10d8fd0db3a61d1800/6/ThrowHelper.Serialization.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ca8898b690a4181a32a9cf767cedb1ea9c28/50/JObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bc1bd6ea66154763a3b10d8fd0db3a61d1800/70/JsonConverterOfT.ReadCore.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/main/Desktop/LightDashboard/backend/Models/LightState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bdd96c5f630a45298dacc07d80deb23b27800/A/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="20HW4VCZIkEuNxP1TwLRCKrJfOB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -53,11 +53,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34981906" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34975636" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.LightWebAPI">
@@ -103,6 +105,17 @@
       <workItem from="1635701812575" duration="5654000" />
       <workItem from="1635783182273" duration="3351000" />
       <workItem from="1636654502590" duration="11632000" />
+      <workItem from="1637626301722" duration="475000" />
+      <workItem from="1637946868736" duration="1688000" />
+      <workItem from="1637963956642" duration="233000" />
+      <workItem from="1637964894283" duration="196000" />
+      <workItem from="1637969578296" duration="153000" />
+      <workItem from="1637970321124" duration="265000" />
+      <workItem from="1637970762824" duration="175000" />
+      <workItem from="1637974247379" duration="11567000" />
+      <workItem from="1638025959777" duration="11204000" />
+      <workItem from="1638052622336" duration="1945000" />
+      <workItem from="1638126121875" duration="1857000" />
     </task>
     <servers />
   </component>
@@ -122,8 +135,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
