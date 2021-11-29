@@ -16,5 +16,7 @@ namespace LightWebAPI.Models
         public string Brightness { get; set; }
         
         public string TimeStamp { get; set; }
+        
+        public bool EnableSunriseSunSetFeature { get; set; }
     }
 }

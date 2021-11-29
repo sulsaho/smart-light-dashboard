@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using LightWebAPI.Models;
 using LightWebAPI.Repositories;
+using LightWebAPI.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -19,7 +20,7 @@ namespace LightWebAPI.Controllers
     public class LightStateController : ControllerBase
     {
         private readonly ILightStateRepository _lightStateRepository;
-        private readonly Timer _timer;
+        private Timer _timer;
         private string LightToken = "Bearer cfe132196d8b5eadb1a8ec2f8e09d6ec90a96267e721a7f9295932eabfbdfff0";
 
         public LightStateController(ILightStateRepository lightStateRepository)
@@ -199,5 +200,42 @@ namespace LightWebAPI.Controllers
             var response = client.Execute(request);
             return response.Content;
         }
+        [HttpPost("light/enable-srss-feature/{enableFeature}")]
+        public async Task<SunriseSunset> SunriseSunsetFeature(bool enableFeature)
+        {
+            var utility = new Utility();
+            var getSunriseSunsetTimes = new SunriseSunset();
+            
+            var getLightStates = await _lightStateRepository.Get();
+            var lastLightState = getLightStates?.Last();
+
+            if (enableFeature)
+            {
+                getSunriseSunsetTimes = utility.GetSunriseSunset();
+                var sunrise = utility.ConvertToDateTime(getSunriseSunsetTimes.results.Sunrise);
+                var sunset = utility.ConvertToDateTime(getSunriseSunsetTimes.results.SunSet);
+                
+                _timer = new Timer( (e) =>
+                {
+                    TurnOn();
+                }, null, sunrise.TimeOfDay, sunset.TimeOfDay);
+                _timer = new Timer( (e) =>
+                {
+                    TurnOff();
+                }, null, sunset.TimeOfDay, sunrise.TimeOfDay);
+            }
+            else
+            {
+                // stop timer
+            }
+
+            if (lastLightState == null) return getSunriseSunsetTimes;
+            lastLightState.EnableSunriseSunSetFeature = enableFeature;
+            await _lightStateRepository.Update(lastLightState);
+
+            return getSunriseSunsetTimes;
+        }
+        
+        
     }
 }
