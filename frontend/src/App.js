@@ -9,9 +9,34 @@ import {Stack} from "@mui/material";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MaterialUISwitch from './MUISwitch'
-import {InputAdornment, TextField} from "@material-ui/core";
+import {InputAdornment, Switch, TextField} from "@material-ui/core";
+import React from "react";
+
 
 function App() {
+  const handlekLoad = async () => {
+    let result = await axios.post('https://localhost:5001/api/LightState/light/fetch-srss-feature/');
+    let enabled = JSON.stringify(result.data) !== '{}' ? result.data.srss_feature.enabled : false;
+
+    document.getElementById("uii").checked = enabled;
+
+    if (enabled) {
+      let sunriseElement = document.getElementById("sunrise");
+      let sunsetElement = document.getElementById("sunset");
+      sunriseElement.value = result.data.srss_feature.sunrise;
+      sunsetElement.value = result.data.srss_feature.sunset;
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('load', handlekLoad);
+
+    // cleanup this component
+    return () => {
+      window.removeEventListener('load', handlekLoad);
+    };
+  }, []);
+
   async function onButton() {
     await axios.post('https://localhost:5001/api/LightState/light/turn-on');
   }
@@ -66,8 +91,15 @@ function App() {
   }
 
   async function setUpSunriseSunsetFeature(e, val) {
-    let y = await axios.post('https://localhost:5001/api/LightState/light/enable-srss-feature/' + val);
-    console.log(y);
+    let result = await axios.post('https://localhost:5001/api/LightState/light/enable-srss-feature/' + val);
+    if (val) setSRSSComponents(result.data);
+  }
+
+  function setSRSSComponents(data) {
+    let sunriseElement = document.getElementById("sunrise");
+    let sunsetElement = document.getElementById("sunset");
+    sunriseElement.value = data.srss_feature.sunrise;
+    sunsetElement.value = data.srss_feature.sunset;
   }
 
   return (
@@ -182,17 +214,22 @@ function App() {
 
           <h2>Toggle Sunrise and Sunset Feature</h2>
           <div style={{width: 200}}>
+            <Switch
+                id="uii"
+              />
             <MaterialUISwitch
                 onChange={setUpSunriseSunsetFeature}
-                name="srss"
+                id="srss"
                 color="secondary"/>
           </div>
 
-          <div>
+          <div style={{width: 500, margin: "1% 0 10% 10%", display: "flex", justifyContent: "space-around"}}>
             <TextField
                 id="sunrise"
                 label="Sunrise"
-                sx={{ m: 1, width: '25ch' }}
+                variant="filled"
+                focused
+                sx={{ m: 2, width: '25ch', color: '#ffffff' }}
                 InputProps={{
                   readOnly: true,
                   startAdornment: (
@@ -206,6 +243,9 @@ function App() {
             <TextField
                 id="sunset"
                 label="Sunset"
+                variant="filled"
+                color="secondary"
+                focused
                 sx={{ m: 1, width: '25ch' }}
                 InputProps={{
                   readOnly: true,
