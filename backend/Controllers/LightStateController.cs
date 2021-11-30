@@ -202,9 +202,8 @@ namespace LightWebAPI.Controllers
         public string SunriseSunsetFeature(bool enableFeature)
         {
             var utility = new Utility();
-            
             var jObject =  utility.EnableSunriseSunsetFeature(enableFeature);
-            Console.WriteLine("test");
+
             return jObject.ToString();
         }
         
@@ -212,8 +211,8 @@ namespace LightWebAPI.Controllers
         public string FetchSunriseSunsetFeature()
         {
             var utility = new Utility();
-            
             var jObject =  utility.GetData();
+            
             return jObject.ToString();
         }
     }

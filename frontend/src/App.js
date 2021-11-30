@@ -9,31 +9,25 @@ import {Stack} from "@mui/material";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MaterialUISwitch from './MUISwitch'
-import {InputAdornment, Switch, TextField} from "@material-ui/core";
-import React from "react";
-
+import {InputAdornment, TextField} from "@material-ui/core";
+import React, { useState} from "react";
 
 function App() {
-  const handlekLoad = async () => {
-    let result = await axios.post('https://localhost:5001/api/LightState/light/fetch-srss-feature/');
-    let enabled = JSON.stringify(result.data) !== '{}' ? result.data.srss_feature.enabled : false;
-
-    document.getElementById("uii").checked = enabled;
-
-    if (enabled) {
-      let sunriseElement = document.getElementById("sunrise");
-      let sunsetElement = document.getElementById("sunset");
-      sunriseElement.value = result.data.srss_feature.sunrise;
-      sunsetElement.value = result.data.srss_feature.sunset;
-    }
-  };
+  const [isSrssEnabled, setIsSrssEnabled]= useState(false);
 
   React.useEffect(() => {
-    window.addEventListener('load', handlekLoad);
+    const handleLoad = async (event) => {
+      let result = await axios.post('https://localhost:5001/api/LightState/light/fetch-srss-feature/');
+      let enabled = JSON.stringify(result.data) !== '{}' ? result.data.srss_feature.enabled : false;
 
-    // cleanup this component
+      setIsSrssEnabled( enabled );
+      setSrssComponents(enabled, result.data);
+    };
+
+    window.addEventListener('load', handleLoad);
+
     return () => {
-      window.removeEventListener('load', handlekLoad);
+      window.removeEventListener('load', handleLoad);
     };
   }, []);
 
@@ -91,15 +85,22 @@ function App() {
   }
 
   async function setUpSunriseSunsetFeature(e, val) {
+    setIsSrssEnabled( val );
     let result = await axios.post('https://localhost:5001/api/LightState/light/enable-srss-feature/' + val);
-    if (val) setSRSSComponents(result.data);
+    setSrssComponents(val, result.data);
   }
 
-  function setSRSSComponents(data) {
+  function setSrssComponents(toFill, data) {
     let sunriseElement = document.getElementById("sunrise");
     let sunsetElement = document.getElementById("sunset");
-    sunriseElement.value = data.srss_feature.sunrise;
-    sunsetElement.value = data.srss_feature.sunset;
+    if (toFill) {
+      sunriseElement.value = data.srss_feature.sunrise;
+      sunsetElement.value = data.srss_feature.sunset;
+    }
+    else {
+      sunriseElement.value = '';
+      sunsetElement.value = '';
+    }
   }
 
   return (
@@ -212,26 +213,26 @@ function App() {
             </Stack>
           </div>
 
-          <h2>Toggle Sunrise and Sunset Feature</h2>
+          <h3>Toggle Sunrise and Sunset Feature</h3>
           <div style={{width: 200}}>
-            <Switch
-                id="uii"
-              />
             <MaterialUISwitch
+                checked={isSrssEnabled}
                 onChange={setUpSunriseSunsetFeature}
                 id="srss"
                 color="secondary"/>
           </div>
 
-          <div style={{width: 500, margin: "1% 0 10% 10%", display: "flex", justifyContent: "space-around"}}>
+          <div style={{width: 460, margin: "1% 0 10% 5%", display: "flex", justifyContent: "space-around"}}>
             <TextField
                 id="sunrise"
                 label="Sunrise"
                 variant="filled"
                 focused
-                sx={{ m: 2, width: '25ch', color: '#ffffff' }}
                 InputProps={{
                   readOnly: true,
+                  style: {
+                    color: 'white'
+                  },
                   startAdornment: (
                       <InputAdornment position="start">
                         <LightModeIcon />
@@ -244,11 +245,12 @@ function App() {
                 id="sunset"
                 label="Sunset"
                 variant="filled"
-                color="secondary"
                 focused
-                sx={{ m: 1, width: '25ch' }}
                 InputProps={{
                   readOnly: true,
+                  style: {
+                    color: 'brown'
+                  },
                   startAdornment: (
                       <InputAdornment position="start">
                         <NightsStayIcon />
