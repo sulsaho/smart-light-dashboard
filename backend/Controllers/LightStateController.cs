@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using LightWebAPI.Models;
 using LightWebAPI.Repositories;
+using LightWebAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -20,19 +21,13 @@ namespace LightWebAPI.Controllers
     {
         private readonly ILightStateRepository _lightStateRepository;
         private readonly Timer _timer;
-        private string LightToken = "Bearer cfe132196d8b5eadb1a8ec2f8e09d6ec90a96267e721a7f9295932eabfbdfff0";
+        private string LightToken = "Bearer ";
 
         public LightStateController(ILightStateRepository lightStateRepository)
         {
             _lightStateRepository = lightStateRepository;
-            
-            /*var startTimeSpan = TimeSpan.FromSeconds(3);
-            var periodTimeSpan = TimeSpan.FromSeconds(3);
-            
-            _timer = new Timer( (e) =>
-            {
-                StateCheck();
-            }, null, startTimeSpan, periodTimeSpan);*/
+            var key = JsonUtil.GetApiKey();
+            LightToken += key;
         }
 
         [HttpGet]
