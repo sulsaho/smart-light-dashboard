@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
 using LightWebAPI.Models;
 using LightWebAPI.Repositories;
+using LightWebAPI.Utilities;
 using LightWebAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -193,6 +192,24 @@ namespace LightWebAPI.Controllers
             
             var response = client.Execute(request);
             return response.Content;
+        }
+        
+        [HttpPost("light/enable-srss-feature/{enableFeature}")]
+        public string SunriseSunsetFeature(bool enableFeature)
+        {
+            var utility = new Utility();
+            var jObject =  utility.EnableSunriseSunsetFeature(enableFeature);
+
+            return jObject.ToString();
+        }
+        
+        [HttpPost("light/fetch-srss-feature")]
+        public string FetchSunriseSunsetFeature()
+        {
+            var utility = new Utility();
+            var jObject =  utility.GetData();
+            
+            return jObject.ToString();
         }
     }
 }
