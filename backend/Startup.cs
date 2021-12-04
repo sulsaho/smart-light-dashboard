@@ -42,6 +42,7 @@ namespace LightWebAPI
             services.AddSingleton<IHostedService, CaptureSunsetSunriseTimes>();
             services.AddSingleton<IHostedService, ScheduleSunrise>();
             services.AddSingleton<IHostedService, ScheduleSunset>();
+            services.AddSingleton<IHostedService, ScheduleStateChange>();
             services.AddDbContext<LightStateContext>(o => o.UseSqlite("Data source=light.db"));
             services.AddControllers();
             services.AddSwaggerGen(c =>
