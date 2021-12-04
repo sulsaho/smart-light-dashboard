@@ -166,3 +166,4 @@
 /Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/obj/Debug/net5.0/LightWebAPI.pdb
 /Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/obj/Debug/net5.0/LightWebAPI.genruntimeconfig.cache
 /Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/bin/Debug/net5.0/NCrontab.dll
+/Users/a.lamichhane/Desktop/Software Construction/Project/smart-light-dashboard/backend/bin/Debug/net5.0/TimeDate.json

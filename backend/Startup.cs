@@ -33,7 +33,7 @@ namespace LightWebAPI
         {
             services.AddScoped<ILightStateRepository, LightStateRepository>();
             services.AddScoped<LightStateController>();
-            services.AddSingleton<IHostedService, SampleTask1>();
+            services.AddSingleton<IHostedService, LightOnTask>();
             services.AddDbContext<LightStateContext>(o => o.UseSqlite("Data source=light.db"));
             services.AddControllers();
             services.AddSwaggerGen(c =>

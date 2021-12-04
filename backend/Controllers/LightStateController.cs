@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -21,10 +22,13 @@ namespace LightWebAPI.Controllers
         private readonly Timer _timer;
         private string LightToken = "Bearer cfe132196d8b5eadb1a8ec2f8e09d6ec90a96267e721a7f9295932eabfbdfff0";
 
+        public bool _IsScheduledON;
+        public bool _IsScheduledOff;
+
         public LightStateController(ILightStateRepository lightStateRepository)
         {
             _lightStateRepository = lightStateRepository;
-            
+
             /*var startTimeSpan = TimeSpan.FromSeconds(3);
             var periodTimeSpan = TimeSpan.FromSeconds(3);
             
@@ -201,11 +205,34 @@ namespace LightWebAPI.Controllers
 
         [HttpPost("light/get-time/{time}")]
 
-        public string getTime(string time)
+        public void GetTime(string time)
         {
-            Console.Write("Input time :" + time);
-            return time;
+            String[] userTime = time.Split(":");
+            var hour = userTime[0];
+            var minute = userTime[1];
+
+            JObject timeObj = new JObject(
+                new JProperty("hour", hour),
+                new JProperty("minute", minute)
+            );
+            //using(StreamWriter file = System.IO.File.CreateText("../backend/TimeDate.json"));
+            System.IO.File.WriteAllText("../backend/TimeDate.json",timeObj.ToString());
         }
 
+        [HttpPost("light/get-schedule/{onOff}")]
+        public void GetSchedule(string onOff)
+        {
+            if (onOff == "ON")
+            {
+                _IsScheduledON = true;
+                _IsScheduledOff = false;
+            }
+            else
+            {
+                _IsScheduledON = false;
+                _IsScheduledOff = true;
+            }
+
+        }
     }
 }

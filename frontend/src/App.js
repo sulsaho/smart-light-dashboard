@@ -8,19 +8,27 @@ import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
 import Checkbox from '@material-ui/core/Checkbox';
 import {Stack} from "@mui/material";
-import {Switch, TextField} from "@material-ui/core";
+import {FormControl, FormControlLabel, Radio, RadioGroup, Switch, TextField} from "@material-ui/core";
 import {useState} from "react";
+import MaterialUISwitch from './MUISwitch';
 
 function App() {
-
   const [time, setTime] = useState('');
+  const [onOff, setChecked] = useState('');
 
   function handleTime (event) {
     setTime(event.target.value);
-    console.log(time);
   }
+  function setSchedule (event){
+    setChecked(event.target.value);
+    console.log(onOff);
+  }
+  async function postSchedule(){
+    await axios.post(`http://localhost:5000/api/LightState/light/get-schedule/${onOff}`);
+  }
+
   async function postTime(){
-    await axios.post(`http://localhost:5000/api/LightState/light/get-time/${time}`);
+    await axios.post(`https://localhost:5001/api/LightState/light/get-time/${time}`);
   }
 
   async function onButton() {
@@ -192,16 +200,31 @@ function App() {
           {/* Not needed */}
         {/*<img src={logo} className="App-logo" alt="logo" /> */}
         <div>
-          <h2>Set the schedular</h2>
+          <h2>Set the schedule</h2>
           <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-            <Switch  />
+            {/*<Switch
+                checked={checked}
+                onChange={handleSchedule}
+                inputProps={{ 'aria-label': 'controlled' }}
+            />*/}
+            <FormControl component="fieldset">
+              <RadioGroup
+                  aria-label="onOff"
+                  name="controlled-radio-buttons-group"
+                  value={onOff}
+                  onChange={setSchedule}>
+                <FormControlLabel value="ON" control={<Radio />} label="ON" />
+                <FormControlLabel value="OFF" control={<Radio />} label="OFF" />
+              </RadioGroup>
+            </FormControl>
             <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
             <Button variant="contained" onClick={postTime}>Save</Button>
+            <Button variant="contained" onClick={postSchedule}>Submit</Button>
           </Stack>
-
         </div>
       </header>
     </div>
+
   );
 }
 
