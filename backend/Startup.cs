@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using LightWebAPI.Controllers;
 using LightWebAPI.Models;
 using LightWebAPI.Repositories;
@@ -38,7 +42,7 @@ namespace LightWebAPI
             
             services.AddScoped<ILightStateRepository, LightStateRepository>();
             services.AddScoped<LightStateController>();
-            services.AddSingleton<IHostedService, SampleTask1>();
+            services.AddSingleton<IHostedService, LightOnTask>();
             services.AddSingleton<IHostedService, CaptureSunsetSunriseTimes>();
             services.AddSingleton<IHostedService, ScheduleSunrise>();
             services.AddSingleton<IHostedService, ScheduleSunset>();

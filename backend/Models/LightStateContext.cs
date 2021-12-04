@@ -14,5 +14,6 @@ namespace LightWebAPI.Models
         
         // Represents a collections of light states
         public DbSet<LightState> LightStates { get; set; }
+        
     }
 }

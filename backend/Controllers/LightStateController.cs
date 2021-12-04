@@ -15,13 +15,15 @@ using RestSharp;
 
 namespace LightWebAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class LightStateController : ControllerBase
     {
         private readonly ILightStateRepository _lightStateRepository;
         private string LightToken = "Bearer ";
+
+        public bool _IsScheduledON;
+        public bool _IsScheduledOff;
 
         public LightStateController(ILightStateRepository lightStateRepository)
         {
@@ -385,6 +387,38 @@ namespace LightWebAPI.Controllers
         {
             return float.Parse(GetState()["brightness"]?.ToString() ?? string.Empty)*100;
             
+        }
+
+        [HttpPost("light/get-time/{time}")]
+
+        public void GetTime(string time)
+        {
+            String[] userTime = time.Split(":");
+            var hour = userTime[0];
+            var minute = userTime[1];
+
+            JObject timeObj = new JObject(
+                new JProperty("hour", hour),
+                new JProperty("minute", minute)
+            );
+            //using(StreamWriter file = System.IO.File.CreateText("../backend/TimeDate.json"));
+            System.IO.File.WriteAllText("../backend/TimeDate.json",timeObj.ToString());
+        }
+
+        [HttpPost("light/get-schedule/{onOff}")]
+        public void GetSchedule(string onOff)
+        {
+            if (onOff == "ON")
+            {
+                _IsScheduledON = true;
+                _IsScheduledOff = false;
+            }
+            else
+            {
+                _IsScheduledON = false;
+                _IsScheduledOff = true;
+            }
+
         }
     }
 }
