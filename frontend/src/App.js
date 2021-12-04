@@ -24,7 +24,8 @@ function App() {
   const [currentState, setCurrentState] = useState('');
   const [runningTime, setRunningTime] = useState('');
   const [usageAmount, setUsageAmount] = useState('');
-
+  const [time, setTime] = useState('');
+  const [onOff, setChecked] = useState('');
 
   useEffect(() => {
     const handleLoad = async (event) => {
@@ -88,7 +89,20 @@ function App() {
     fetchData();
   }, [])
 
+  function handleTime (event) {
+    setTime(event.target.value);
+  }
+  function setSchedule (event){
+    setChecked(event.target.value);
+    console.log(onOff);
+  }
+  async function postSchedule(){
+    await axios.post(`https://localhost:5001/api/LightState/light/get-schedule/${onOff}`);
+  }
 
+  async function postTime(){
+    await axios.post(`https://localhost:5001/api/LightState/light/get-time/${time}`);
+  }
 
   async function onButton() {
     await axios.post('https://localhost:5001/api/LightState/light/turn-on');
@@ -359,8 +373,34 @@ function App() {
                   />
                 </div>
               </div>
+
+              <div>
+                <h2>Set the schedule</h2>
+                <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                  {/*<Switch
+                      checked={checked}
+                      onChange={handleSchedule}
+                      inputProps={{ 'aria-label': 'controlled' }}
+                  />*/}
+                  <FormControl component="fieldset">
+                    <RadioGroup
+                        aria-label="onOff"
+                        name="controlled-radio-buttons-group"
+                        value={onOff}
+                        onChange={setSchedule}>
+                      <FormControlLabel value="ON" control={<Radio />} label="ON" />
+                      <FormControlLabel value="OFF" control={<Radio />} label="OFF" />
+                    </RadioGroup>
+                  </FormControl>
+                  <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
+                  <Button variant="contained" onClick={postTime}>Save</Button>
+                  <Button variant="contained" onClick={postSchedule}>Submit</Button>
+                </Stack>
+              </div>
             </Stack>
           </div>
+
+        
           <hr></hr>
 
           <h1>Stats</h1>
