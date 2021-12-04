@@ -28,7 +28,7 @@ namespace LightWebAPI.ScheduleTask
         
         public override Task ProcessInScope(IServiceProvider scopeServiceProvider)
         {
-            Console.WriteLine("Turn Off at Sunset : " + DateTime.Now);
+            //Console.WriteLine("Turn Off at Sunset : " + DateTime.Now);
             var lightStateController = scopeServiceProvider.GetRequiredService<LightStateController>();
             
             var utility = new Utility();

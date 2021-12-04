@@ -306,7 +306,7 @@ namespace LightWebAPI.Controllers
             };
             return stats;
         }
-        
+
 
         [HttpPost("light/utility")]
         public List<string> ProcessUtility()
@@ -315,6 +315,7 @@ namespace LightWebAPI.Controllers
             var lightStates = GetLightStates().Result;
             var diff = TimeSpan.Parse("0");
             var lastIsOn = lightStates.FirstOrDefault().IsOn;
+            var lastEntryDiff = DateTime.Now.Subtract(DateTime.Parse(lightStates.LastOrDefault().TimeStamp).AddHours(-6));
 
             foreach (var lightState in lightStates)
             {
@@ -331,23 +332,35 @@ namespace LightWebAPI.Controllers
                 }
             }
 
-            if (filtered[0].IsOn == false)
+            if (!filtered[0].IsOn)
             {
                 filtered.RemoveAt(0);
             }
-
-            var lastTimeStamp = DateTime.Parse(filtered[0].TimeStamp);
+            if (!filtered[^1].IsOn)
+            {
+                filtered.RemoveAt(filtered.Count-1);
+            }
+            
+            var previousTimeStamp = DateTime.Parse(filtered[0].TimeStamp);
 
             for (var index = 0; index < filtered.Count; index++)
             {
                 var lightState = filtered[index];
                 if (lightState.IsOn) continue;
-                diff += DateTime.Parse(lightState.TimeStamp).Subtract(lastTimeStamp);
-                lastTimeStamp = DateTime.Parse(filtered[index + 1].TimeStamp);
+                diff += DateTime.Parse(lightState.TimeStamp).Subtract(previousTimeStamp);
+                previousTimeStamp = DateTime.Parse(filtered[index + 1].TimeStamp);
             }
+
+            var diffWhenOn = diff.Add(lastEntryDiff);
+            var diffUsage = (diff.TotalHours * 7) / 1000;
+            var diffWhenOnUsage = (diffWhenOn.TotalHours * 7) / 1000;
+            
             return new List<string>()
-                { diff.ToString(), lightStates.FirstOrDefault()?.TimeStamp };
-        }
+            {
+                diff.TotalHours.ToString("F2"), diffUsage.ToString("F2"), diffWhenOn.TotalHours.ToString("F2"),
+                diffWhenOnUsage.ToString("F2")
+            };
+    }
 
         [HttpPost("light/brightness-list")]
         public List<float> GetBrightnesses()

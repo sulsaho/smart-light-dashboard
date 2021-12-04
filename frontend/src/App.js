@@ -14,12 +14,16 @@ import React, { useState, useEffect} from "react";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
 
 function App() {
+
   const [isSrssEnabled, setIsSrssEnabled]= useState(false);
   const [stats, setStats] = useState([]);
   const [utility, setUtility] = useState([]);
   const [brightnessList, setBrightnessList] = useState([]);
   const [defBrightness, setDefaultBrightness] = useState(0);
   const [firstTimeStamp, setFirstTimeStamp] = useState([]);
+  const [currentState, setCurrentState] = useState('');
+  const [runningTime, setRunningTime] = useState('');
+  const [usageAmount, setUsageAmount] = useState('');
 
 
   useEffect(() => {
@@ -30,9 +34,7 @@ function App() {
       setIsSrssEnabled( enabled );
       setSrssComponents(enabled, result.data);
     };
-
     window.addEventListener('load', handleLoad);
-
     return () => {
       window.removeEventListener('load', handleLoad);
     };
@@ -42,16 +44,14 @@ function App() {
     async function fetchData (){
       const response = await axios.post('https://localhost:5001/api/LightState/light/stats');
       setStats(response.data);
-
     }
     fetchData();
   }, [])
 
   useEffect( () => {
     async function fetchData (){
-      const response = await axios.post('"https://localhost:5001/api/LightState/light/utility');
+      const response = await axios.post('https://localhost:5001/api/LightState/light/utility');
       setUtility(response.data);
-
     }
     fetchData();
   }, [])
@@ -60,7 +60,6 @@ function App() {
     async function fetchData (){
       const response = await axios.post('https://localhost:5001/api/LightState/light/brightness-list');
       setBrightnessList(response.data);
-
     }
     fetchData();
   }, [])
@@ -69,7 +68,6 @@ function App() {
     async function fetchData (){
       const response = await axios.post('https://localhost:5001/api/LightState/light/initial-timestamp');
       setFirstTimeStamp(response.data);
-
     }
     fetchData();
   }, [])
@@ -78,7 +76,14 @@ function App() {
     async function fetchData (){
       const response = await axios.post('https://localhost:5001/api/LightState/light/current-brightness');
       setDefaultBrightness(response.data);
+    }
+    fetchData();
+  }, [])
 
+  useEffect( () => {
+    async function fetchData (){
+      const response = await axios.post('https://localhost:5001/api/LightState/light/current-state');
+      setCurrentState(response.data);
     }
     fetchData();
   }, [])
@@ -155,6 +160,25 @@ function App() {
       sunsetElement.value = '';
     }
   }
+
+  async function setUtilTime() {
+    if (currentState === 'on')
+    {
+      setRunningTime(utility[2]);
+      setUsageAmount(utility[3]);
+    }
+    else
+    {
+      setRunningTime(utility[0]);
+      setUsageAmount(utility[1]);
+    }
+  }
+
+  const interval = setInterval(function() {
+    setUtilTime();
+  }, 30000);
+
+  clearInterval();
 
   return (
       <div className="App">
@@ -354,7 +378,9 @@ function App() {
               <p>As of {firstTimeStamp},<br></br>
                 based on standby wattage of ~0.7W,<br></br>
                 and average wattage of ~7W,<br></br>
-                with total running time of "00:00:00"
+                with running time of {runningTime} hours<br></br>
+                will cost ${usageAmount} based on<br></br>
+                Cass County Electric's figures
               </p>
             </div>
             <div className="Inner-stats">

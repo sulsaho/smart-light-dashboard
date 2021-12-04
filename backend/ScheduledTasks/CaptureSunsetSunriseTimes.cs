@@ -21,7 +21,7 @@ namespace LightWebAPI.ScheduleTask
          */
         public override Task ProcessInScope(IServiceProvider scopeServiceProvider)
         {
-            Console.WriteLine("Capture sunset and sunrise times : " + DateTime.Now);
+            //Console.WriteLine("Capture sunset and sunrise times : " + DateTime.Now);
             
             var utility = new Utility();
             dynamic getData = utility.GetData();

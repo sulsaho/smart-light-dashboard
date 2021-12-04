@@ -18,7 +18,6 @@ namespace LightWebAPI.ScheduleTask
         {
             var lightStateController = scopeServiceProvider.GetRequiredService<LightStateController>();
             lightStateController.AddState();
-            Console.WriteLine("It happened");
             return Task.CompletedTask;
         }
     }

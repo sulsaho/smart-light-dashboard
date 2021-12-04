@@ -6,17 +6,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc8437a7-9b49-4f77-b90c-e72c31328fc3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ScheduledTasks/ScheduleStateChange.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LightWebAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightWebAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/LightStateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LightStateController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScheduledTasks/CaptureSunsetSunriseTimes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ScheduledTasks/CaptureSunsetSunriseTimes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScheduledTasks/SampleTask1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ScheduledTasks/SampleTask1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScheduledTasks/ScheduleStateChange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ScheduledTasks/ScheduleStateChange.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScheduledTasks/ScheduleSunrise.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ScheduledTasks/ScheduleSunrise.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScheduledTasks/ScheduleSunset.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ScheduledTasks/ScheduleSunset.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/LightWebAPI.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/LightWebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/light.db" beforeDir="false" afterPath="$PROJECT_DIR$/light.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/LightWebAPI.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/LightWebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/LightWebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/node_modules/.cache/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +40,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Utils/SunriseSunsetUtil.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/42ed81b84ea64a209c8a62c83d9d73f98d7a00/228/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ca8898b690a4181a32a9cf767cedb1ea9c28/49/JArray.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bc1bd6ea66154763a3b10d8fd0db3a61d1800/6/ThrowHelper.Serialization.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/42ed81b84ea64a209c8a62c83d9d73f98d7a00/86/DateTimeParse.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ca8898b690a4181a32a9cf767cedb1ea9c28/50/JObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -111,7 +116,7 @@
       <workItem from="1638241155662" duration="3378000" />
       <workItem from="1638394023037" duration="507000" />
       <workItem from="1638394876726" duration="1324000" />
-      <workItem from="1638513052312" duration="29832000" />
+      <workItem from="1638513052312" duration="37481000" />
     </task>
     <servers />
   </component>

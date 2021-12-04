@@ -25,7 +25,7 @@ namespace LightWebAPI.ScheduleTask
 
         public override Task ProcessInScope(IServiceProvider scopeServiceProvider)
         {
-            Console.WriteLine("SampleTask1 : " + DateTime.Now.ToString());
+            //Console.WriteLine("SampleTask1 : " + DateTime.Now.ToString());
             LightStateController lightStateController = scopeServiceProvider.GetRequiredService<LightStateController>();
             lightStateController.TogglePower();
             
