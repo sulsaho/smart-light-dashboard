@@ -5,3 +5,13 @@
 backend/obj/*
 backend/bin/*
 frontend/node_modules/*
+backend/obj/LightWebAPI.csproj.nuget.dgspec.json
+backend/obj/project.assets.json
+backend/obj/project.nuget.cache
+backend/obj/project.packagespec.json
+backend/obj/rider.project.restore.info
+backend/obj/Debug/net5.0/LightWebAPI.csproj.CoreCompileInputs.cache
+backend/obj/Debug/net5.0/LightWebAPI.csproj.FileListAbsolute.txt
+backend/obj/Debug/net5.0/LightWebAPI.csprojAssemblyReference.cache
+frontend/node_modules/.cache/.eslintcache
+backend/bin/Debug/net5.0/LightWebAPI.deps.json
