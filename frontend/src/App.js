@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup'
@@ -6,15 +5,84 @@ import Slider from '@material-ui/core/Slider';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
-import Checkbox from '@material-ui/core/Checkbox';
 import {Stack} from "@mui/material";
-import {FormControl, FormControlLabel, Radio, RadioGroup, Switch, TextField} from "@material-ui/core";
-import {useState} from "react";
-import MaterialUISwitch from './MUISwitch';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import MaterialUISwitch from './MUISwitch'
+import {InputAdornment, TextField} from "@material-ui/core";
+import React, { useState, useEffect} from "react";
+import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
 
 function App() {
+  const [isSrssEnabled, setIsSrssEnabled]= useState(false);
+  const [stats, setStats] = useState([]);
+  const [utility, setUtility] = useState([]);
+  const [brightnessList, setBrightnessList] = useState([]);
+  const [defBrightness, setDefaultBrightness] = useState(0);
+  const [firstTimeStamp, setFirstTimeStamp] = useState([]);
   const [time, setTime] = useState('');
   const [onOff, setChecked] = useState('');
+
+  useEffect(() => {
+    const handleLoad = async (event) => {
+      let result = await axios.post('https://localhost:5001/api/LightState/light/fetch-srss-feature/');
+      let enabled = JSON.stringify(result.data) !== '{}' ? result.data.srss_feature.enabled : false;
+
+      setIsSrssEnabled( enabled );
+      setSrssComponents(enabled, result.data);
+    };
+
+    window.addEventListener('load', handleLoad);
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
+
+  useEffect( () => {
+    async function fetchData (){
+      const response = await axios.post('https://localhost:5001/api/LightState/light/stats');
+      setStats(response.data);
+
+    }
+    fetchData();
+  }, [])
+
+  useEffect( () => {
+    async function fetchData (){
+      const response = await axios.post('"https://localhost:5001/api/LightState/light/utility');
+      setUtility(response.data);
+
+    }
+    fetchData();
+  }, [])
+
+  useEffect( () => {
+    async function fetchData (){
+      const response = await axios.post('https://localhost:5001/api/LightState/light/brightness-list');
+      setBrightnessList(response.data);
+
+    }
+    fetchData();
+  }, [])
+
+  useEffect( () => {
+    async function fetchData (){
+      const response = await axios.post('https://localhost:5001/api/LightState/light/initial-timestamp');
+      setFirstTimeStamp(response.data);
+
+    }
+    fetchData();
+  }, [])
+
+  useEffect( () => {
+    async function fetchData (){
+      const response = await axios.post('https://localhost:5001/api/LightState/light/current-brightness');
+      setDefaultBrightness(response.data);
+
+    }
+    fetchData();
+  }, [])
 
   function handleTime (event) {
     setTime(event.target.value);
@@ -24,7 +92,7 @@ function App() {
     console.log(onOff);
   }
   async function postSchedule(){
-    await axios.post(`http://localhost:5000/api/LightState/light/get-schedule/${onOff}`);
+    await axios.post(`https://localhost:5001/api/LightState/light/get-schedule/${onOff}`);
   }
 
   async function postTime(){
@@ -32,7 +100,7 @@ function App() {
   }
 
   async function onButton() {
-    await axios.post('http://localhost:5000/api/LightState/light/turn-on');
+    await axios.post('https://localhost:5001/api/LightState/light/turn-on');
   }
 
   async function offButton() {
@@ -79,152 +147,272 @@ function App() {
     await axios.post('https://localhost:5001/api/LightState/light/breathe');
   }
 
-  async function getBrightnessValue(e, val) {
-    let uri = 'https://localhost:5001/api/LightState/light/brightness/' + val.toString();
-    await axios.post(uri);
+  async function getBrightnessValue(e, val){
+    await axios.post(`https://localhost:5001/api/LightState/light/brightness/${val.toString()}`);
+  }
+
+  async function setUpSunriseSunsetFeature(e, val) {
+    setIsSrssEnabled( val );
+    let result = await axios.post('https://localhost:5001/api/LightState/light/enable-srss-feature/' + val);
+    setSrssComponents(val, result.data);
+  }
+
+  function setSrssComponents(toFill, data) {
+    let sunriseElement = document.getElementById("sunrise");
+    let sunsetElement = document.getElementById("sunset");
+    if (toFill) {
+      sunriseElement.value = data.srss_feature.sunrise;
+      sunsetElement.value = data.srss_feature.sunset;
+    }
+    else {
+      sunriseElement.value = '';
+      sunsetElement.value = '';
+    }
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-          <h2>Turn ON/OFF</h2>
-          <ButtonGroup
-            variant="outlined">
-            <Button
-                size="large"
-                color="primary"
-                onClick={onButton}>
-              ON
-            </Button>
-            <Button
-                size="large"
-                color="secondary"
-                onClick={offButton}>
-              OFF
-            </Button>
-          </ButtonGroup>
-        </div>
+      <div className="App">
+        <header className="App-header">
+          <h1>Controls</h1>
+          <div className="Controls">
 
-        <div>
-          <h2>Set Colors</h2>
-          <ButtonGroup
-            variant='outlined'>
-            <Button
-                size="large"
-                style={{color : '#FFFFFF'}}
-                onClick={setWhiteColor}>
-              White
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#FF0000'}}
-                onClick={setRedColor}>
-              Red
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#FFA500'}}
-                onClick={setOrangeColor}>
-              Orange
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#FFFF00'}}
-                onClick={setYellowColor}>
-              Yellow
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#00FFFF'}}
-                onClick={setCyanColor}>
-              Cyan
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#008000'}}
-                onClick={setGreenColor}>
-              Green
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#0000FF'}}
-                onClick={setBlueColor}>
-              Blue
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#800080'}}
-                onClick={setPurpleColor}>
-              Purple
-            </Button>
-            <Button
-                size="large"
-                style={{color : '#FF00FF'}}
-                onClick={setPinkColor}>
-              Pink
-            </Button>
-          </ButtonGroup>
-        </div>
+            <div className="Inner-controls">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2>Turn ON/OFF</h2>
+                <ButtonGroup
+                    variant="outlined">
+                  <Button
+                      size="large"
+                      color="primary"
+                      onClick={onButton}>
+                    ON
+                  </Button>
+                  <Button
+                      size="large"
+                      color="secondary"
+                      onClick={offButton}>
+                    OFF
+                  </Button>
+                </ButtonGroup>
+              </Stack>
+            </div>
 
-        <h2>Pulse Effect</h2>
-        <div>
-          <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={breatheEffect}>
-            Pulse Light
-          </Button>
-        </div>
 
-        <h2>Set Brightness</h2>
+            <div className="Inner-controls">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2>Set Colors</h2>
+                <ButtonGroup
+                    variant='outlined'>
+                  <Button
+                      size="large"
+                      style={{color : '#FFFFFF'}}
+                      onClick={setWhiteColor}>
+                    White
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#FF0000'}}
+                      onClick={setRedColor}>
+                    Red
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#FFA500'}}
+                      onClick={setOrangeColor}>
+                    Orange
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#FFFF00'}}
+                      onClick={setYellowColor}>
+                    Yellow
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#00FFFF'}}
+                      onClick={setCyanColor}>
+                    Cyan
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#008000'}}
+                      onClick={setGreenColor}>
+                    Green
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#0000FF'}}
+                      onClick={setBlueColor}>
+                    Blue
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#800080'}}
+                      onClick={setPurpleColor}>
+                    Purple
+                  </Button>
+                  <Button
+                      size="large"
+                      style={{color : '#FF00FF'}}
+                      onClick={setPinkColor}>
+                    Pink
+                  </Button>
+                </ButtonGroup>
+              </Stack>
+            </div>
 
-        <div style={{width: 300}}>
-          <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-            <BrightnessLowIcon />
-            <Slider
-              color="primary"
-              defaultValue={50}
-              step={10}
-              marks
-              valueLabelDisplay={"auto"}
-              onChange={getBrightnessValue}>
-            </Slider>
-            <BrightnessHighIcon />
-          </Stack>
-        </div>
 
-        {/*<Checkbox/> */}
+            <div className="Inner-controls">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2>Breathe Effect</h2>
+                <Button
+                    variant="outlined"
+                    size="large"
+                    color="primary"
+                    onClick={breatheEffect}>
+                  Breathe Light Effect
+                </Button>
+              </Stack>
+            </div>
+
+            <div className="Inner-controls">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2>Set Brightness</h2>
+                <div style={{width: 300}}>
+                  <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                    <BrightnessLowIcon />
+                    <Slider
+                        color="primary"
+                        defaultValue={defBrightness}
+                        step={10}
+                        marks
+                        valueLabelDisplay={"auto"}
+                        onChange={getBrightnessValue}>
+                    </Slider>
+                    <BrightnessHighIcon />
+                  </Stack>
+                </div>
+              </Stack>
+            </div>
+          </div>
+          <hr></hr>
+
+          <h1>Features</h1>
+          <div className="Features">
+            <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+              <h2> Sunrise/Sunset </h2>
+              <div>
+                <div style={{width: 200}}>
+
+                  <MaterialUISwitch
+                      checked={isSrssEnabled}
+                      onChange={setUpSunriseSunsetFeature}
+                      id="srss"
+                      color="secondary"/>
+                </div>
+
+                <div style={{width: 460, margin: "1% 0 10% 5%", display: "flex", justifyContent: "space-around"}}>
+                  <TextField
+                      id="sunrise"
+                      label="Sunrise"
+                      variant="filled"
+                      focused
+                      InputProps={{
+                        readOnly: true,
+                        style: {
+                          color: 'white'
+                        },
+                        startAdornment: (
+                            <InputAdornment position="start">
+                              <LightModeIcon />
+                            </InputAdornment>
+                        ),
+                      }}
+                  />
+
+                  <TextField
+                      id="sunset"
+                      label="Sunset"
+                      variant="filled"
+                      focused
+                      InputProps={{
+                        readOnly: true,
+                        style: {
+                          color: 'brown'
+                        },
+                        startAdornment: (
+                            <InputAdornment position="start">
+                              <NightsStayIcon />
+                            </InputAdornment>
+                        ),
+                      }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h2>Set the schedule</h2>
+                <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                  {/*<Switch
+                      checked={checked}
+                      onChange={handleSchedule}
+                      inputProps={{ 'aria-label': 'controlled' }}
+                  />*/}
+                  <FormControl component="fieldset">
+                    <RadioGroup
+                        aria-label="onOff"
+                        name="controlled-radio-buttons-group"
+                        value={onOff}
+                        onChange={setSchedule}>
+                      <FormControlLabel value="ON" control={<Radio />} label="ON" />
+                      <FormControlLabel value="OFF" control={<Radio />} label="OFF" />
+                    </RadioGroup>
+                  </FormControl>
+                  <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
+                  <Button variant="contained" onClick={postTime}>Save</Button>
+                  <Button variant="contained" onClick={postSchedule}>Submit</Button>
+                </Stack>
+              </div>
+            </Stack>
+          </div>
+
+        
+          <hr></hr>
+
+          <h1>Stats</h1>
+          <div className="Stats">
+            <div className="Inner-stats">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2>Advanced Stats:</h2>
+                <ul>
+                  {stats.map(stat => <li key={stat}>{stat}</li>)}
+                </ul>
+              </Stack>
+            </div>
+            <div className="Inner-stats">
+              <h2>Utility:</h2>
+              <p>As of {firstTimeStamp},<br></br>
+                based on standby wattage of ~0.7W,<br></br>
+                and average wattage of ~7W,<br></br>
+                with total running time of "00:00:00"
+              </p>
+            </div>
+            <div className="Inner-stats">
+              <h2>Brightness Levels:</h2>
+              <div>
+                <VictoryChart theme={VictoryTheme.material} domainPadding={20} width={1000}>
+                  <VictoryLabel text={`Brightness levels as of ${firstTimeStamp}`} x={70} y={30}/>
+                  <VictoryLine interpolation="natural" data={brightnessList} x={'category'} y={'count_mins'}/>
+                </VictoryChart>
+              </div>
+            </div>
+          </div>
+
 
           {/* Not needed */}
-        {/*<img src={logo} className="App-logo" alt="logo" /> */}
-        <div>
-          <h2>Set the schedule</h2>
-          <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-            {/*<Switch
-                checked={checked}
-                onChange={handleSchedule}
-                inputProps={{ 'aria-label': 'controlled' }}
-            />*/}
-            <FormControl component="fieldset">
-              <RadioGroup
-                  aria-label="onOff"
-                  name="controlled-radio-buttons-group"
-                  value={onOff}
-                  onChange={setSchedule}>
-                <FormControlLabel value="ON" control={<Radio />} label="ON" />
-                <FormControlLabel value="OFF" control={<Radio />} label="OFF" />
-              </RadioGroup>
-            </FormControl>
-            <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
-            <Button variant="contained" onClick={postTime}>Save</Button>
-            <Button variant="contained" onClick={postSchedule}>Submit</Button>
-          </Stack>
-        </div>
-      </header>
-    </div>
-
+          {/*<img src={logo} className="App-logo" alt="logo" /> */}
+        </header>
+      </div>
   );
 }
 
