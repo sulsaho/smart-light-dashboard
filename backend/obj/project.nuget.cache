@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9ligB385lw98Gc2IBWyf9xRzAZ6hixjTkiag5fuqnuGK7KrlSpmtFCkf7Vh5toow/YkC9PQYrFztd/2+OiZqYQ==",
+  "dgSpecHash": "5kpAt+tXNbuKIxlI0oyxBtZB7ep7PMoY/9wsBEPJv/7cdlHEVhvgFNg21LrYvC8EH35A0fQ1DXKOstZvOE6Jjg==",
   "success": true,
   "projectFilePath": "/Users/main/Desktop/LightDashboard/backend/LightWebAPI.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,7 @@
     "/Users/main/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
     "/Users/main/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "/Users/main/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/main/.nuget/packages/ncrontab/3.3.1/ncrontab.3.3.1.nupkg.sha512",
     "/Users/main/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/Users/main/.nuget/packages/restsharp/106.13.0/restsharp.106.13.0.nupkg.sha512",
     "/Users/main/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.4/sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
