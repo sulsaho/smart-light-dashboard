@@ -5,14 +5,13 @@ import Slider from '@material-ui/core/Slider';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
-import {FormControl, FormControlLabel, Radio, RadioGroup, Stack} from "@mui/material";
+import {Stack} from "@mui/material";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MaterialUISwitch from './MUISwitch'
 import {FormControl, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField} from "@material-ui/core";
 import React, { useState, useEffect} from "react";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
-import moment from "moment";
 
 function App() {
 
@@ -101,12 +100,9 @@ function App() {
     setChecked(event.target.value);
     console.log(onOff);
   }
-  async function postSchedule(){
-    await axios.post(`https://localhost:5001/api/LightState/light/get-schedule/${onOff}`);
-  }
 
   async function postTime(){
-    await axios.post(`https://localhost:5001/api/LightState/light/get-time/${time}`);
+    await axios.post(`https://localhost:5001/api/LightState/light/get-time/${time}:${onOff}`);
   }
 
   async function onButton() {
@@ -197,7 +193,7 @@ function App() {
 
   const interval = setInterval(function() {
     setUtilTime();
-  }, 10000);
+  }, 20000);
 
   clearInterval();
 
@@ -382,14 +378,9 @@ function App() {
               </Stack>
             </div>
 
-              <div>
+              <div style={{marginLeft: 70}} className="Inner-features">
                 <h2>Set the schedule</h2>
                 <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                  {/*<Switch
-                      checked={checked}
-                      onChange={handleSchedule}
-                      inputProps={{ 'aria-label': 'controlled' }}
-                  />*/}
                   <FormControl component="fieldset">
                     <RadioGroup
                         aria-label="onOff"
@@ -419,13 +410,15 @@ function App() {
             </div>
             <div className="Inner-stats">
               <h2>Utility:</h2>
-              <p>As of {firstTimeStamp},<br></br>
-                based on standby wattage of ~0.7W,<br></br>
-                and average wattage of ~7W,<br></br>
-                with running time of {runningTime} hours<br></br>
-                will cost ${usageAmount} based on<br></br>
-                Cass County Electric's figures
-              </p>
+              <div style={{marginTop: 45}}>
+                <p>As of {firstTimeStamp},<br></br>
+                  based on standby wattage of ~0.7W,<br></br>
+                  and average wattage of ~7W,<br></br>
+                  with running time of <span style={{color: "red"}}>{runningTime}</span> hours<br></br>
+                  will cost <span style={{color: "red"}}>${usageAmount}</span> based on<br></br>
+                  Cass County Electric's figures
+                </p>
+              </div>
             </div>
             <div className="Inner-stats">
               <h2>Brightness Levels:</h2>
