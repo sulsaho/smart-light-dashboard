@@ -9,7 +9,7 @@ import {Stack} from "@mui/material";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MaterialUISwitch from './MUISwitch'
-import {InputAdornment, TextField} from "@material-ui/core";
+import {FormControl, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField} from "@material-ui/core";
 import React, { useState, useEffect} from "react";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
 
@@ -95,13 +95,14 @@ function App() {
   function setSchedule (event){
     setChecked(event.target.value);
     console.log(onOff);
+    console.log(typeof(onOff));
   }
   async function postSchedule(){
     await axios.post(`https://localhost:5001/api/LightState/light/get-schedule/${onOff}`);
   }
 
   async function postTime(){
-    await axios.post(`https://localhost:5001/api/LightState/light/get-time/${time}`);
+    await axios.post(`http://localhost:5000/api/LightState/light/get-time/${time}:${onOff}`);
   }
 
   async function onButton() {
@@ -394,7 +395,6 @@ function App() {
                   </FormControl>
                   <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
                   <Button variant="contained" onClick={postTime}>Save</Button>
-                  <Button variant="contained" onClick={postSchedule}>Submit</Button>
                 </Stack>
               </div>
             </Stack>
@@ -433,8 +433,6 @@ function App() {
               </div>
             </div>
           </div>
-
-
           {/* Not needed */}
           {/*<img src={logo} className="App-logo" alt="logo" /> */}
         </header>
