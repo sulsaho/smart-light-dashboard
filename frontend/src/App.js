@@ -404,10 +404,7 @@ function App() {
                   <Button variant="contained" onClick={postTime}>Save</Button>
                 </Stack>
               </div>
-            </Stack>
           </div>
-
-        
           <hr></hr>
 
           <h1>Stats</h1>
