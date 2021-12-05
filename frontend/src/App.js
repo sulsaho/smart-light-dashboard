@@ -16,6 +16,7 @@ import moment from "moment";
 
 function App() {
 
+  //useState hooks
   const [isSrssEnabled, setIsSrssEnabled]= useState(false);
   const [stats, setStats] = useState([]);
   const [utility, setUtility] = useState([]);
@@ -28,6 +29,7 @@ function App() {
   const [time, setTime] = useState('');
   const [onOff, setChecked] = useState('');
 
+  // useEffect hooks
   useEffect(() => {
     const handleLoad = async (event) => {
       let result = await axios.post('https://localhost:5001/api/LightState/light/fetch-srss-feature/');
@@ -89,6 +91,8 @@ function App() {
     }
     fetchData();
   }, [])
+
+  //calls
 
   function handleTime (event) {
     setTime(event.target.value);
@@ -177,7 +181,9 @@ function App() {
   }
 
   async function setUtilTime() {
-    if (currentState === 'on')
+    setRunningTime(utility[2]);
+    setUsageAmount(utility[3]);
+    /*if (currentState === 'on')
     {
       setRunningTime(utility[2]);
       setUsageAmount(utility[3]);
@@ -186,7 +192,7 @@ function App() {
     {
       setRunningTime(utility[0]);
       setUsageAmount(utility[1]);
-    }
+    }*/
   }
 
   const interval = setInterval(function() {
@@ -396,8 +402,8 @@ function App() {
                   </RadioGroup>
                 </FormControl>
                 <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
-                <Button variant="contained" onClick={postTime}>Save</Button>
-                <Button variant="contained" onClick={postSchedule}>Submit</Button>
+                <Button variant="outlined" onClick={postTime}>Save</Button>
+                <Button variant="outlined" onClick={postSchedule}>Submit</Button>
               </Stack>
             </div>
 
