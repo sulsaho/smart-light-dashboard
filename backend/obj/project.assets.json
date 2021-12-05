@@ -1203,10 +1203,10 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.11",
-      "NCrontab >= 3.3.1",
       "Newtonsoft.Json >= 13.0.1",
       "RestSharp >= 106.13.0",
-      "Swashbuckle.AspNetCore >= 5.6.3"
+      "Swashbuckle.AspNetCore >= 5.6.3",
+      "ncrontab >= 3.3.1"
     ]
   },
   "packageFolders": {
@@ -1250,10 +1250,6 @@
             "target": "Package",
             "version": "[5.0.11, )"
           },
-          "NCrontab": {
-            "target": "Package",
-            "version": "[3.3.1, )"
-          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.1, )"
@@ -1265,6 +1261,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[5.6.3, )"
+          },
+          "ncrontab": {
+            "target": "Package",
+            "version": "[3.3.1, )"
           }
         },
         "imports": [

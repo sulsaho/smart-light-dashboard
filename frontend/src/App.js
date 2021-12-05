@@ -5,13 +5,14 @@ import Slider from '@material-ui/core/Slider';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
-import {Stack} from "@mui/material";
+import {FormControl, FormControlLabel, Radio, RadioGroup, Stack} from "@mui/material";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MaterialUISwitch from './MUISwitch'
 import {InputAdornment, TextField} from "@material-ui/core";
 import React, { useState, useEffect} from "react";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
+import moment from "moment";
 
 function App() {
 
@@ -190,7 +191,7 @@ function App() {
 
   const interval = setInterval(function() {
     setUtilTime();
-  }, 30000);
+  }, 10000);
 
   clearInterval();
 
@@ -199,7 +200,6 @@ function App() {
         <header className="App-header">
           <h1>Controls</h1>
           <div className="Controls">
-
             <div className="Inner-controls">
               <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
                 <h2>Turn ON/OFF</h2>
@@ -323,81 +323,84 @@ function App() {
 
           <h1>Features</h1>
           <div className="Features">
-            <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
-              <h2> Sunrise/Sunset </h2>
-              <div>
-                <div style={{width: 200}}>
+            <div className="Inner-features">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2> Sunrise/Sunset </h2>
+                  <div>
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                      <div style={{width: 200}}>
+                        <MaterialUISwitch
+                            checked={isSrssEnabled}
+                            onChange={setUpSunriseSunsetFeature}
+                            id="srss"
+                            color="secondary"/>
+                      </div>
+                      <div style={{width: 500, margin: "1% 1% 1% 1%", display: "flex", justifyContent: "space-around"}}>
+                        <TextField
+                            id="sunrise"
+                            label="Sunrise"
+                            variant="filled"
+                            focused
+                            InputProps={{
+                              readOnly: true,
+                              style: {
+                                color: 'white'
+                              },
+                              startAdornment: (
+                                  <InputAdornment position="start">
+                                    <LightModeIcon />
+                                  </InputAdornment>
+                              ),
+                            }}
+                        />
+                        <TextField
+                            id="sunset"
+                            label="Sunset"
+                            variant="filled"
+                            focused
+                            InputProps={{
+                              readOnly: true,
+                              style: {
+                                color: 'brown'
+                              },
+                              startAdornment: (
+                                  <InputAdornment position="start">
+                                    <NightsStayIcon />
+                                  </InputAdornment>
+                              ),
+                            }}
+                        />
+                      </div>
+                    </Stack>
+                  </div>
+              </Stack>
+            </div>
 
-                  <MaterialUISwitch
-                      checked={isSrssEnabled}
-                      onChange={setUpSunriseSunsetFeature}
-                      id="srss"
-                      color="secondary"/>
-                </div>
 
-                <div style={{width: 460, margin: "1% 0 10% 5%", display: "flex", justifyContent: "space-around"}}>
-                  <TextField
-                      id="sunrise"
-                      label="Sunrise"
-                      variant="filled"
-                      focused
-                      InputProps={{
-                        readOnly: true,
-                        style: {
-                          color: 'white'
-                        },
-                        startAdornment: (
-                            <InputAdornment position="start">
-                              <LightModeIcon />
-                            </InputAdornment>
-                        ),
-                      }}
-                  />
+            <div className="Inner-features">
+              <h2>Set Schedule</h2>
+              <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                {/*<Switch
+                    checked={checked}
+                    onChange={handleSchedule}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />*/}
+                <FormControl component="fieldset">
+                  <RadioGroup
+                      aria-label="onOff"
+                      name="controlled-radio-buttons-group"
+                      value={onOff}
+                      onChange={setSchedule}>
+                    <FormControlLabel value="ON" control={<Radio />} label="ON" />
+                    <FormControlLabel value="OFF" control={<Radio />} label="OFF" />
+                  </RadioGroup>
+                </FormControl>
+                <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
+                <Button variant="contained" onClick={postTime}>Save</Button>
+                <Button variant="contained" onClick={postSchedule}>Submit</Button>
+              </Stack>
+            </div>
 
-                  <TextField
-                      id="sunset"
-                      label="Sunset"
-                      variant="filled"
-                      focused
-                      InputProps={{
-                        readOnly: true,
-                        style: {
-                          color: 'brown'
-                        },
-                        startAdornment: (
-                            <InputAdornment position="start">
-                              <NightsStayIcon />
-                            </InputAdornment>
-                        ),
-                      }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <h2>Set the schedule</h2>
-                <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                  {/*<Switch
-                      checked={checked}
-                      onChange={handleSchedule}
-                      inputProps={{ 'aria-label': 'controlled' }}
-                  />*/}
-                  <FormControl component="fieldset">
-                    <RadioGroup
-                        aria-label="onOff"
-                        name="controlled-radio-buttons-group"
-                        value={onOff}
-                        onChange={setSchedule}>
-                      <FormControlLabel value="ON" control={<Radio />} label="ON" />
-                      <FormControlLabel value="OFF" control={<Radio />} label="OFF" />
-                    </RadioGroup>
-                  </FormControl>
-                  <TextField id="outlined-basic"  variant="filled" type="time" onChange={handleTime}/>
-                  <Button variant="contained" onClick={postTime}>Save</Button>
-                  <Button variant="contained" onClick={postSchedule}>Submit</Button>
-                </Stack>
-              </div>
-            </Stack>
           </div>
 
         
@@ -428,7 +431,7 @@ function App() {
               <div>
                 <VictoryChart theme={VictoryTheme.material} domainPadding={20} width={1000}>
                   <VictoryLabel text={`Brightness levels as of ${firstTimeStamp}`} x={70} y={30}/>
-                  <VictoryLine interpolation="natural" data={brightnessList} x={'category'} y={'count_mins'}/>
+                  <VictoryLine interpolation="natural" data={brightnessList} />
                 </VictoryChart>
               </div>
             </div>

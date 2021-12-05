@@ -2,10 +2,8 @@ using System;
 using System.Threading.Tasks;
 using LightWebAPI.BackgroundService;
 using LightWebAPI.Controllers;
-using LightWebAPI.Repositories;
 using LightWebAPI.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 
 namespace LightWebAPI.ScheduleTask
 {
