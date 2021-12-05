@@ -2,14 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security;
 using System.Threading.Tasks;
 using LightWebAPI.Models;
 using LightWebAPI.Repositories;
 using LightWebAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -300,7 +297,7 @@ namespace LightWebAPI.Controllers
                 "Hue: " + lightResponse["color"]?["hue"]?.ToString(),
                 "Saturation: " + lightResponse["color"]?["saturation"]?.ToString(),
                 "Kelvin: " + lightResponse["color"]?["kelvin"]?.ToString(),
-                "Brightness: " + lightResponse["brightness"]?.ToString(),
+                "Brightness: " + (float.Parse(lightResponse["brightness"]?.ToString() ?? string.Empty)*100).ToString(CultureInfo.InvariantCulture)+"%",
                 "Light Name: " + lightResponse["product"]?["name"]?.ToString(),
                 "Identifier: " + lightResponse["product"]?["identifier"]?.ToString(),
             };
@@ -365,7 +362,7 @@ namespace LightWebAPI.Controllers
         [HttpPost("light/brightness-list")]
         public List<float> GetBrightnesses()
         {
-            return (from lightState in GetLightStates().Result where lightState.IsOn select float.Parse(lightState.Brightness)).ToList();
+            return (from lightState in GetLightStates().Result where lightState.IsOn select float.Parse(lightState.Brightness)*100).ToList();
         }
         
         [HttpPost("light/initial-timestamp")]

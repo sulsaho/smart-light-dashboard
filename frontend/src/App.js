@@ -5,16 +5,18 @@ import Slider from '@material-ui/core/Slider';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import axios from 'axios';
-import {Stack} from "@mui/material";
+import {FormControl, FormControlLabel, Radio, RadioGroup, Stack} from "@mui/material";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MaterialUISwitch from './MUISwitch'
 import {FormControl, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField} from "@material-ui/core";
 import React, { useState, useEffect} from "react";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
+import moment from "moment";
 
 function App() {
 
+  //useState hooks
   const [isSrssEnabled, setIsSrssEnabled]= useState(false);
   const [stats, setStats] = useState([]);
   const [utility, setUtility] = useState([]);
@@ -27,6 +29,7 @@ function App() {
   const [time, setTime] = useState('');
   const [onOff, setChecked] = useState('');
 
+  // useEffect hooks
   useEffect(() => {
     const handleLoad = async (event) => {
       let result = await axios.post('https://localhost:5001/api/LightState/light/fetch-srss-feature/');
@@ -89,20 +92,21 @@ function App() {
     fetchData();
   }, [])
 
+  //calls
+
   function handleTime (event) {
     setTime(event.target.value);
   }
   function setSchedule (event){
     setChecked(event.target.value);
     console.log(onOff);
-    console.log(typeof(onOff));
   }
   async function postSchedule(){
     await axios.post(`https://localhost:5001/api/LightState/light/get-schedule/${onOff}`);
   }
 
   async function postTime(){
-    await axios.post(`http://localhost:5000/api/LightState/light/get-time/${time}:${onOff}`);
+    await axios.post(`https://localhost:5001/api/LightState/light/get-time/${time}`);
   }
 
   async function onButton() {
@@ -177,7 +181,9 @@ function App() {
   }
 
   async function setUtilTime() {
-    if (currentState === 'on')
+    setRunningTime(utility[2]);
+    setUsageAmount(utility[3]);
+    /*if (currentState === 'on')
     {
       setRunningTime(utility[2]);
       setUsageAmount(utility[3]);
@@ -186,12 +192,12 @@ function App() {
     {
       setRunningTime(utility[0]);
       setUsageAmount(utility[1]);
-    }
+    }*/
   }
 
   const interval = setInterval(function() {
     setUtilTime();
-  }, 30000);
+  }, 10000);
 
   clearInterval();
 
@@ -200,7 +206,6 @@ function App() {
         <header className="App-header">
           <h1>Controls</h1>
           <div className="Controls">
-
             <div className="Inner-controls">
               <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
                 <h2>Turn ON/OFF</h2>
@@ -324,56 +329,58 @@ function App() {
 
           <h1>Features</h1>
           <div className="Features">
-            <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
-              <h2> Sunrise/Sunset </h2>
-              <div>
-                <div style={{width: 200}}>
-
-                  <MaterialUISwitch
-                      checked={isSrssEnabled}
-                      onChange={setUpSunriseSunsetFeature}
-                      id="srss"
-                      color="secondary"/>
-                </div>
-
-                <div style={{width: 460, margin: "1% 0 10% 5%", display: "flex", justifyContent: "space-around"}}>
-                  <TextField
-                      id="sunrise"
-                      label="Sunrise"
-                      variant="filled"
-                      focused
-                      InputProps={{
-                        readOnly: true,
-                        style: {
-                          color: 'white'
-                        },
-                        startAdornment: (
-                            <InputAdornment position="start">
-                              <LightModeIcon />
-                            </InputAdornment>
-                        ),
-                      }}
-                  />
-
-                  <TextField
-                      id="sunset"
-                      label="Sunset"
-                      variant="filled"
-                      focused
-                      InputProps={{
-                        readOnly: true,
-                        style: {
-                          color: 'brown'
-                        },
-                        startAdornment: (
-                            <InputAdornment position="start">
-                              <NightsStayIcon />
-                            </InputAdornment>
-                        ),
-                      }}
-                  />
-                </div>
-              </div>
+            <div className="Inner-features">
+              <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+                <h2> Sunrise/Sunset </h2>
+                  <div>
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                      <div style={{width: 200}}>
+                        <MaterialUISwitch
+                            checked={isSrssEnabled}
+                            onChange={setUpSunriseSunsetFeature}
+                            id="srss"
+                            color="secondary"/>
+                      </div>
+                      <div style={{width: 500, margin: "1% 1% 1% 1%", display: "flex", justifyContent: "space-around"}}>
+                        <TextField
+                            id="sunrise"
+                            label="Sunrise"
+                            variant="filled"
+                            focused
+                            InputProps={{
+                              readOnly: true,
+                              style: {
+                                color: 'white'
+                              },
+                              startAdornment: (
+                                  <InputAdornment position="start">
+                                    <LightModeIcon />
+                                  </InputAdornment>
+                              ),
+                            }}
+                        />
+                        <TextField
+                            id="sunset"
+                            label="Sunset"
+                            variant="filled"
+                            focused
+                            InputProps={{
+                              readOnly: true,
+                              style: {
+                                color: 'brown'
+                              },
+                              startAdornment: (
+                                  <InputAdornment position="start">
+                                    <NightsStayIcon />
+                                  </InputAdornment>
+                              ),
+                            }}
+                        />
+                      </div>
+                    </Stack>
+                  </div>
+              </Stack>
+            </div>
 
               <div>
                 <h2>Set the schedule</h2>
@@ -428,7 +435,7 @@ function App() {
               <div>
                 <VictoryChart theme={VictoryTheme.material} domainPadding={20} width={1000}>
                   <VictoryLabel text={`Brightness levels as of ${firstTimeStamp}`} x={70} y={30}/>
-                  <VictoryLine interpolation="natural" data={brightnessList} x={'category'} y={'count_mins'}/>
+                  <VictoryLine interpolation="natural" data={brightnessList} />
                 </VictoryChart>
               </div>
             </div>

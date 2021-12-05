@@ -42,10 +42,6 @@
               "target": "Package",
               "version": "[5.0.11, )"
             },
-            "NCrontab": {
-              "target": "Package",
-              "version": "[3.3.1, )"
-            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
@@ -57,6 +53,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "ncrontab": {
+              "target": "Package",
+              "version": "[3.3.1, )"
             }
           },
           "imports": [

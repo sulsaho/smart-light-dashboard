@@ -112,3 +112,4 @@
 /Users/main/Desktop/LightDashboard/backend/bin/Debug/net5.0/configuration.json
 /Users/main/Desktop/LightDashboard/backend/bin/Debug/net5.0/NCrontab.dll
 /Users/main/Desktop/LightDashboard/backend/bin/Debug/net5.0/data.json
+/Users/main/Desktop/LightDashboard/backend/bin/Debug/net5.0/TimeDate.json
