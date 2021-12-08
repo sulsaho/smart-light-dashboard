@@ -12,7 +12,6 @@ import MaterialUISwitch from './MUISwitch'
 import {InputAdornment, TextField} from "@material-ui/core";
 import React, { useState, useEffect} from "react";
 import {VictoryChart, VictoryLabel, VictoryLine, VictoryTheme} from "victory";
-import moment from "moment";
 
 function App() {
 
@@ -221,7 +220,6 @@ function App() {
               </Stack>
             </div>
 
-
             <div className="Inner-controls">
               <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
                 <h2>Set Colors</h2>
@@ -284,7 +282,6 @@ function App() {
                 </ButtonGroup>
               </Stack>
             </div>
-
 
             <div className="Inner-controls">
               <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
@@ -376,15 +373,9 @@ function App() {
               </Stack>
             </div>
 
-
             <div className="Inner-features">
               <h2>Set Schedule</h2>
               <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                {/*<Switch
-                    checked={checked}
-                    onChange={handleSchedule}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                />*/}
                 <FormControl component="fieldset">
                   <RadioGroup
                       aria-label="onOff"
@@ -402,7 +393,6 @@ function App() {
             </div>
 
           </div>
-
         
           <hr></hr>
 
@@ -423,7 +413,7 @@ function App() {
                 and average wattage of ~7W,<br></br>
                 with running time of {runningTime} hours<br></br>
                 will cost ${usageAmount} based on<br></br>
-                Cass County Electric's figures
+                Cass County Electrics figures
               </p>
             </div>
             <div className="Inner-stats">
@@ -437,9 +427,6 @@ function App() {
             </div>
           </div>
 
-
-          {/* Not needed */}
-          {/*<img src={logo} className="App-logo" alt="logo" /> */}
         </header>
       </div>
   );
