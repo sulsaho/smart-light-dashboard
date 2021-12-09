@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.809.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightWebAPI", "LightWebAPI.csproj", "{111B79D7-C656-4359-80AD-143FA7AA0954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightWebAPI_Tests", "LightWebAPI_Tests\LightWebAPI_Tests.csproj", "{6571DE6A-9589-4938-B18E-4C2A59E0FDD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightWebAPI_Tests", "LightWebAPI_Tests\LightWebAPI_Tests.csproj", "{62D258B9-DE7F-4FD6-8EFD-55ED3783A167}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{111B79D7-C656-4359-80AD-143FA7AA0954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{111B79D7-C656-4359-80AD-143FA7AA0954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{111B79D7-C656-4359-80AD-143FA7AA0954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6571DE6A-9589-4938-B18E-4C2A59E0FDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6571DE6A-9589-4938-B18E-4C2A59E0FDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6571DE6A-9589-4938-B18E-4C2A59E0FDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6571DE6A-9589-4938-B18E-4C2A59E0FDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D258B9-DE7F-4FD6-8EFD-55ED3783A167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D258B9-DE7F-4FD6-8EFD-55ED3783A167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D258B9-DE7F-4FD6-8EFD-55ED3783A167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D258B9-DE7F-4FD6-8EFD-55ED3783A167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

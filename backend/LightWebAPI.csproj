@@ -10,10 +10,33 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="xunit" Version="2.4.2-pre.12" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="light.db" />
+    <None Remove="LightWebAPI_Tests\**" />
+    <Content Remove="configuration.json" />
+    <None Include="configuration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Remove="data.json" />
+    <None Include="data.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="LightWebAPI_Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="LightWebAPI_Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="LightWebAPI_Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="LightWebAPI_Tests\packages.config" />
   </ItemGroup>
 
 </Project>
