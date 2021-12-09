@@ -1,36 +1,44 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace LightWebAPI.Utils
 {
-    public class Utility
+    public static class Utility
     {
+        /** Path to the sunrise and sunset feature JSON object */
         private static readonly string Path = $"{Environment.CurrentDirectory}/data.json";
-        private readonly double LATITUDE = 46.8564;
-        private readonly double LONGITUDE = -96.8123;
-        private readonly string SUNRISE_SUNSET_API = "https://api.sunrise-sunset.org/json";
+        /** Latitude of Fargo city*/
+        private static readonly float LATITUDE = 46.877229f;
+        /** Longitude of Fargo city*/
+        private static readonly float LONGITUDE = -96.789821f;
+        /** URL for the sunrise and sunset API */
+        private static readonly string SUNRISE_SUNSET_API = "https://api.sunrise-sunset.org/json";
         
-        public JObject GetSunriseSunset()
+        /**
+         * Retrieves the sunrise and sunset times 
+         */
+        public static JObject GetSunriseSunset()
         {
             dynamic sunriseSunsetObject = new JObject();
-
+            
             try
             {
                 var client = new RestClient(SUNRISE_SUNSET_API);
                 var request = new RestRequest(Method.GET);
                 request.AddParameter("lat", LATITUDE);
-                request.AddParameter("long", LONGITUDE);
+                request.AddParameter("lng", LONGITUDE);
                 request.AddParameter("date", "today");
                 
                 var response = client.Execute(request);
-                
+
                 var parsedJson = JObject.Parse(response.Content);
                 sunriseSunsetObject.srss_feature = new JObject();
-                sunriseSunsetObject.srss_feature.sunrise = parsedJson["results"]?["sunrise"];
-                sunriseSunsetObject.srss_feature.sunset = parsedJson["results"]?["sunset"];
+                sunriseSunsetObject.srss_feature.sunrise = ConvertToDateTime(parsedJson["results"]?["sunrise"]?.ToString());
+                sunriseSunsetObject.srss_feature.sunset = ConvertToDateTime(parsedJson["results"]?["sunset"]?.ToString());
             }
             catch(Exception e)
             {
@@ -40,8 +48,13 @@ namespace LightWebAPI.Utils
 
             return sunriseSunsetObject;
         }
-
-        public JObject EnableSunriseSunsetFeature(bool enable)
+ 
+        /**
+         * Enables the sunrise sunset feature by updating
+         * the srss JSON blob with a variable, enable to true
+         * or false
+         */
+        public static JObject EnableSunriseSunsetFeature(bool enable)
         {
             dynamic sunriseSunsetObject = new JObject();
             
@@ -65,7 +78,10 @@ namespace LightWebAPI.Utils
             return sunriseSunsetObject;
         }
 
-        public JObject GetData()
+        /**
+         * Retrieve srss JSON object from stored file
+         */
+        public static JObject GetData()
         {
             if (!File.Exists(GetDataJsonPath())) return new JObject();
             
@@ -74,9 +90,15 @@ namespace LightWebAPI.Utils
             return JObject.Parse(jsonString);
         }
         
-        public DateTime ConvertToDateTime(string stringValue)
+        /**
+         * Converts JSON string to date time object
+         * in America/Chicago timezone
+         */
+        public static string ConvertToDateTime(string stringValue)
         {
-            return DateTime.ParseExact(stringValue, "h:mm:ss tt", CultureInfo.InvariantCulture);
+            var getDate = DateTime.ParseExact(stringValue, "h:mm:ss tt", CultureInfo.InvariantCulture);
+            TimeZoneInfo targetZone = TimeZoneInfo.FindSystemTimeZoneById("America/Chicago");
+            return TimeZoneInfo.ConvertTimeFromUtc(getDate, targetZone).ToString("h:mm:ss tt");
         }
 
         public static string GetDataJsonPath()

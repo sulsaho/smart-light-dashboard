@@ -304,7 +304,7 @@ function App() {
                     <BrightnessLowIcon />
                     <Slider
                         color="primary"
-                        defaultValue={defBrightness}
+                        value= {defBrightness}
                         step={10}
                         marks
                         valueLabelDisplay={"auto"}
