@@ -43,5 +43,14 @@ namespace LightWebAPI.Utils
             var minute = time["minute"]?.ToString();
             return minute;
         }
+        
+        public static string GetOnOff()
+        {
+            using StreamReader r = new StreamReader("../backend/TimeDate.json");
+            var json = r.ReadToEnd();
+            var time = JObject.Parse(json);
+            var isOnOff = time["isOnOff"]?.ToString();
+            return isOnOff;
+        }
     }
 }

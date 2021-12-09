@@ -9,9 +9,8 @@ namespace LightWebAPI.ScheduleTask
 {
     public class LightOnTask : ScheduledProcessor
     {
-        private int _hour;
-        private int _minute;
-        
+
+
         public LightOnTask(IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
         {
         }
@@ -20,24 +19,34 @@ namespace LightWebAPI.ScheduleTask
         {
             get
             {
-                _hour = Int32.Parse(JsonUtil.GetHour());
-                _minute = Int32.Parse(JsonUtil.GetMinutes());
-                return $"{_minute} {_hour} * * * ";
+
+                return $"* * * * * ";
+               
             }
         }
         
         public override Task ProcessInScope(IServiceProvider scopeServiceProvider)
         {
-            Console.WriteLine("LightOnTask : " + DateTime.Now.ToString());
-            
-            LightStateController lightStateController = scopeServiceProvider.GetRequiredService<LightStateController>();
-            if (lightStateController._IsScheduledON == true)
+            var hour = Int32.Parse(JsonUtil.GetHour());
+            var minute = Int32.Parse(JsonUtil.GetMinutes());
+            var isOnOff = JsonUtil.GetOnOff();
+            DateTime dateTime = DateTime.Now;
+            if (dateTime.Hour == hour && dateTime.Minute == minute)
             {
-                lightStateController.TurnOn();
-            }
-            if (lightStateController._IsScheduledOff == true)
-            {
-                lightStateController.TurnOff();
+                Console.WriteLine("LightOnTask : " + DateTime.Now.ToString());
+                
+                LightStateController lightStateController = scopeServiceProvider.GetRequiredService<LightStateController>();
+                switch (isOnOff)
+                {
+                    case "ON":
+                        Console.WriteLine("TurnON");
+                        lightStateController.TurnOn();
+                        break;
+                    case "OFF":
+                        Console.WriteLine("TurnOFF");
+                        lightStateController.TurnOff();
+                        break;
+                }
             }
             return Task.CompletedTask;
         }

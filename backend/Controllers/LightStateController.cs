@@ -18,9 +18,7 @@ namespace LightWebAPI.Controllers
     {
         private readonly ILightStateRepository _lightStateRepository;
         private string LightToken = "Bearer ";
-
-        public bool _IsScheduledON;
-        public bool _IsScheduledOff;
+        
 
         public LightStateController(ILightStateRepository lightStateRepository)
         {
@@ -388,29 +386,17 @@ namespace LightWebAPI.Controllers
             String[] userTime = time.Split(":");
             var hour = userTime[0];
             var minute = userTime[1];
+            var onOff = userTime[2];
+            Console.WriteLine(time);
 
             JObject timeObj = new JObject(
                 new JProperty("hour", hour),
-                new JProperty("minute", minute)
+                new JProperty("minute", minute),
+                new JProperty("isOnOff", onOff)
             );
-            //using(StreamWriter file = System.IO.File.CreateText("../backend/TimeDate.json"));
+            
             System.IO.File.WriteAllText("../backend/TimeDate.json",timeObj.ToString());
         }
 
-        [HttpPost("light/get-schedule/{onOff}")]
-        public void GetSchedule(string onOff)
-        {
-            if (onOff == "ON")
-            {
-                _IsScheduledON = true;
-                _IsScheduledOff = false;
-            }
-            else
-            {
-                _IsScheduledON = false;
-                _IsScheduledOff = true;
-            }
-
-        }
     }
 }
