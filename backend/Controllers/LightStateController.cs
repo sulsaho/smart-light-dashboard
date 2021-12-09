@@ -269,22 +269,17 @@ namespace LightWebAPI.Controllers
         [HttpPost("light/enable-srss-feature/{enableFeature}")]
         public string SunriseSunsetFeature(bool enableFeature)
         {
-            var utility = new Utility();
-            var jObject =  utility.EnableSunriseSunsetFeature(enableFeature);
-
+            var jObject =  Utility.EnableSunriseSunsetFeature(enableFeature);
             return jObject.ToString();
         }
         
         [HttpPost("light/fetch-srss-feature")]
         public string FetchSunriseSunsetFeature()
         {
-            var utility = new Utility();
-            var jObject =  utility.GetData();
-            
+            var jObject =  Utility.GetData();
             return jObject.ToString();
         }
-
-
+        
         [HttpPost("light/stats")]
         public List<string> GetStats()
         {
