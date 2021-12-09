@@ -23,12 +23,11 @@ namespace LightWebAPI.ScheduleTask
         {
             //Console.WriteLine("Capture sunset and sunrise times : " + DateTime.Now);
             
-            var utility = new Utility();
-            dynamic getData = utility.GetData();
+            dynamic getData = Utility.GetData();
             
             bool enabled = getData.srss_feature.enabled ? getData.srss_feature.enabled : false;
             
-            dynamic getSunriseSunsetTimes = utility.GetSunriseSunset();
+            dynamic getSunriseSunsetTimes = Utility.GetSunriseSunset();
             getSunriseSunsetTimes.srss_feature.enabled = enabled;
 
             using (var streamWriter = new StreamWriter(Utility.GetDataJsonPath()))

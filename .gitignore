@@ -15,3 +15,5 @@ backend/obj/Debug/net5.0/LightWebAPI.csproj.FileListAbsolute.txt
 backend/obj/Debug/net5.0/LightWebAPI.csprojAssemblyReference.cache
 frontend/node_modules/.cache/.eslintcache
 backend/bin/Debug/net5.0/LightWebAPI.deps.json
+*.pdb
+backend/bin/Debug/net5.0/LightWebAPI.dll

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using LightWebAPI.BackgroundService;
 using LightWebAPI.Controllers;
@@ -17,22 +18,19 @@ namespace LightWebAPI.ScheduleTask
         {
             get
             {
-                var utility = new Utility();
-                dynamic data = utility.GetData();
+                dynamic data = Utility.GetData();
                 
                 if (data.srss_feature == null) return "0 0 * * *";
-                DateTime sunset = utility.ConvertToDateTime(data.srss_feature.sunset.ToString());
+                DateTime sunset = DateTime.ParseExact(data.srss_feature.sunset.ToString(), "h:mm:ss tt", CultureInfo.InvariantCulture);
                 return $"{sunset.Minute} {sunset.Hour} * * *";
             }
         }
         
         public override Task ProcessInScope(IServiceProvider scopeServiceProvider)
         {
-            //Console.WriteLine("Turn Off at Sunset : " + DateTime.Now);
             var lightStateController = scopeServiceProvider.GetRequiredService<LightStateController>();
             
-            var utility = new Utility();
-            dynamic data = utility.GetData();
+            dynamic data = Utility.GetData();
             
             var enabled = (bool) data.srss_feature.enabled;
             if (enabled) lightStateController.TurnOff();

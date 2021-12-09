@@ -92,7 +92,6 @@ function App() {
   }, [])
 
   //calls
-
   function handleTime (event) {
     setTime(event.target.value);
   }
@@ -179,16 +178,6 @@ function App() {
   async function setUtilTime() {
     setRunningTime(utility[2]);
     setUsageAmount(utility[3]);
-    /*if (currentState === 'on')
-    {
-      setRunningTime(utility[2]);
-      setUsageAmount(utility[3]);
-    }
-    else
-    {
-      setRunningTime(utility[0]);
-      setUsageAmount(utility[1]);
-    }*/
   }
 
   const interval = setInterval(function() {
@@ -222,7 +211,6 @@ function App() {
                 </ButtonGroup>
               </Stack>
             </div>
-
 
             <div className="Inner-controls">
               <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
@@ -287,7 +275,6 @@ function App() {
               </Stack>
             </div>
 
-
             <div className="Inner-controls">
               <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
                 <h2>Breathe Effect</h2>
@@ -309,7 +296,7 @@ function App() {
                     <BrightnessLowIcon />
                     <Slider
                         color="primary"
-                        defaultValue={defBrightness}
+                        value= {defBrightness}
                         step={10}
                         marks
                         valueLabelDisplay={"auto"}
@@ -396,6 +383,7 @@ function App() {
                 </Stack>
               </div>
           </div>
+        
           <hr></hr>
 
           <h1>Stats</h1>
@@ -416,7 +404,7 @@ function App() {
                   and average wattage of ~7W,<br></br>
                   with running time of <span style={{color: "red"}}>{runningTime}</span> hours<br></br>
                   will cost <span style={{color: "red"}}>${usageAmount}</span> based on<br></br>
-                  Cass County Electric's figures
+                  Cass County Electrics figures
                 </p>
               </div>
             </div>
@@ -430,8 +418,7 @@ function App() {
               </div>
             </div>
           </div>
-          {/* Not needed */}
-          {/*<img src={logo} className="App-logo" alt="logo" /> */}
+
         </header>
       </div>
   );
